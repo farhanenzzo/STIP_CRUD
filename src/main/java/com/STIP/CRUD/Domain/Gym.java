@@ -11,7 +11,10 @@ public class Gym {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String name;
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "gym_trainer", joinColumns = {
+            @JoinColumn(name = "gym_id", referencedColumnName = "id")
+    }, inverseJoinColumns = {@JoinColumn(name = "trainer_id", referencedColumnName = "id")})
     private List<Trainer> trainers;
 
     public Gym() {
@@ -55,4 +58,5 @@ public class Gym {
                 ", trainers=" + trainers +
                 '}';
     }
+
 }
